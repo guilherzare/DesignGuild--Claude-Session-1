@@ -223,6 +223,7 @@
     gap: 12px;
     font-size: 15px;
     color: var(--text);
+    transition: opacity 0.4s ease, transform 0.4s ease;
   }
 
   .checklist li .check {
@@ -255,7 +256,7 @@
     border: 1px solid var(--border);
     border-radius: 10px;
     padding: 14px 18px;
-    transition: border-color 0.2s;
+    transition: opacity 0.4s ease, transform 0.4s ease, border-color 0.2s;
   }
 
   .step:hover { border-color: var(--accent); }
@@ -371,6 +372,7 @@
     gap: 20px;
     padding: 16px 0;
     border-bottom: 1px solid var(--border);
+    transition: opacity 0.4s ease, transform 0.4s ease;
   }
   .agenda-item:last-child { border-bottom: none; }
 
@@ -522,7 +524,7 @@
     border: 1px solid var(--border);
     border-radius: 10px;
     padding: 20px;
-    transition: border-color 0.2s;
+    transition: opacity 0.4s ease, transform 0.4s ease, border-color 0.2s;
   }
   .concept-card:hover { border-color: var(--accent); }
 
@@ -556,10 +558,17 @@
     outline-offset: 4px;
   }
 
+  /* ─── ANIMATION SECTIONS ─── */
+  .anim-hidden {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
   /* ─── RÉDUCTION DE MOUVEMENT ─── */
   @media (prefers-reduced-motion: reduce) {
     .slide { transition: opacity 0.2s ease; transform: none !important; }
     .step, .concept-card, .dot, .nav button { transition: none; }
+    .anim-hidden { opacity: 1 !important; transform: none !important; }
   }
 </style>
 </head>
@@ -1163,16 +1172,20 @@
   const total = slides.length;
   let current = 0;
 
+  const ANIM_SEL = '.concept-card, li.step, .checklist li, .agenda-item';
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let slideStep = 0;
+  let slideSteps = [];
+
   document.getElementById('total-slides').textContent = total;
 
-  // Initialiser aria-hidden sur toutes les slides
   slides.forEach((slide, i) => {
     slide.setAttribute('aria-hidden', i === 0 ? 'false' : 'true');
     slide.setAttribute('role', 'tabpanel');
     slide.setAttribute('aria-label', 'Diapositive ' + (i + 1) + ' sur ' + total);
   });
 
-  // Construire les points de navigation
   const dotsContainer = document.getElementById('nav-dots');
   slides.forEach((_, i) => {
     const d = document.createElement('button');
@@ -1181,30 +1194,34 @@
     d.setAttribute('aria-label', 'Diapositive ' + (i + 1));
     d.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
     d.setAttribute('tabindex', i === 0 ? '0' : '-1');
-    d.onclick = () => goTo(i);
+    d.onclick = () => jumpTo(i);
     d.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goTo(i); }
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); jumpTo(i); }
     });
     dotsContainer.appendChild(d);
   });
 
-  function goTo(n) {
-    const next = (n + total) % total;
-    if (next === current) return;
+  function initSlideAnim(slideEl, revealAll) {
+    slideSteps = Array.from(slideEl.querySelectorAll(ANIM_SEL));
+    if (revealAll || reducedMotion) {
+      slideSteps.forEach(el => el.classList.remove('anim-hidden'));
+      slideStep = slideSteps.length;
+    } else {
+      slideSteps.forEach(el => el.classList.add('anim-hidden'));
+      slideStep = 0;
+    }
+  }
 
-    const dir = next > current ? 1 : -1;
-    const prev = current;
+  function applyTransition(prev, next, dir) {
     const enterClass = dir > 0 ? 'exit-right' : 'exit-left';
     const exitClass  = dir > 0 ? 'exit-left'  : 'exit-right';
 
-    // Positionner le slide entrant hors-champ sans animation
     slides[next].style.transition = 'none';
     slides[next].classList.add(enterClass);
-    slides[next].offsetHeight; // force le reflow pour valider la position de départ
+    slides[next].offsetHeight;
     slides[next].style.transition = '';
     slides[next].classList.remove(enterClass);
 
-    // Sortie du slide actuel + entrée du suivant (déclenchent les transitions CSS)
     slides[prev].classList.add(exitClass);
     slides[prev].classList.remove('active');
     slides[prev].setAttribute('aria-hidden', 'true');
@@ -1221,13 +1238,40 @@
     current = next;
     document.getElementById('current-slide').textContent = current + 1;
     document.getElementById('nav-counter').textContent = (current + 1) + ' / ' + total;
-
-    // Nettoyer la classe de sortie après l'animation
     setTimeout(() => slides[prev].classList.remove(exitClass), 500);
   }
 
-  function nextSlide() { goTo(current + 1); }
+  // Navigation par flèches : révèle section par section, puis avance
+  function goTo(n) {
+    const next = (n + total) % total;
+    if (next === current) return;
+    const dir = next > current ? 1 : -1;
+    applyTransition(current, next, dir);
+    initSlideAnim(slides[current], dir < 0);
+  }
+
+  // Navigation par dots : affiche tout immédiatement
+  function jumpTo(n) {
+    const next = (n + total) % total;
+    if (next === current) return;
+    const dir = next > current ? 1 : -1;
+    applyTransition(current, next, dir);
+    initSlideAnim(slides[current], true);
+  }
+
+  function nextSlide() {
+    if (slideStep < slideSteps.length) {
+      slideSteps[slideStep].classList.remove('anim-hidden');
+      slideStep++;
+    } else {
+      goTo(current + 1);
+    }
+  }
+
   function prevSlide() { goTo(current - 1); }
+
+  // Initialiser la première slide (cover — pas d'éléments animables)
+  initSlideAnim(slides[0], true);
 
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') nextSlide();
