@@ -48,13 +48,17 @@
     padding: 64px;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.4s ease;
+    transform: translateX(0);
+    transition: opacity 0.45s ease, transform 0.45s ease;
   }
 
   .slide.active {
     opacity: 1;
     pointer-events: all;
+    transform: translateX(0);
   }
+  .slide.exit-left  { transform: translateX(-5%); }
+  .slide.exit-right { transform: translateX(5%); }
 
   /* ─── GRID BACKGROUND ─── */
   .slide::before {
@@ -122,9 +126,12 @@
     border-radius: 50%;
     background: var(--border);
     cursor: pointer;
-    transition: all 0.2s;
+    padding: 0;
+    flex-shrink: 0;
+    transition: all 0.25s ease;
   }
   .dot.active { background: var(--accent); width: 18px; border-radius: 3px; }
+  .dot:hover:not(.active) { background: var(--muted); }
 
   /* ─── SLIDE NUMBER ─── */
   .slide-num {
@@ -509,7 +516,7 @@
 
   /* ─── RÉDUCTION DE MOUVEMENT ─── */
   @media (prefers-reduced-motion: reduce) {
-    .slide { transition: none; }
+    .slide { transition: opacity 0.2s ease; transform: none !important; }
     .step, .concept-card, .dot, .nav button { transition: none; }
   }
 </style>
@@ -1045,21 +1052,41 @@
   });
 
   function goTo(n) {
-    slides[current].classList.remove('active');
-    slides[current].setAttribute('aria-hidden', 'true');
-    dotsContainer.children[current].classList.remove('active');
-    dotsContainer.children[current].setAttribute('aria-selected', 'false');
-    dotsContainer.children[current].setAttribute('tabindex', '-1');
+    const next = (n + total) % total;
+    if (next === current) return;
 
-    current = (n + total) % total;
+    const dir = next > current ? 1 : -1;
+    const prev = current;
+    const enterClass = dir > 0 ? 'exit-right' : 'exit-left';
+    const exitClass  = dir > 0 ? 'exit-left'  : 'exit-right';
 
-    slides[current].classList.add('active');
-    slides[current].setAttribute('aria-hidden', 'false');
-    dotsContainer.children[current].classList.add('active');
-    dotsContainer.children[current].setAttribute('aria-selected', 'true');
-    dotsContainer.children[current].setAttribute('tabindex', '0');
+    // Positionner le slide entrant hors-champ sans animation
+    slides[next].style.transition = 'none';
+    slides[next].classList.add(enterClass);
+    slides[next].offsetHeight; // force le reflow pour valider la position de départ
+    slides[next].style.transition = '';
+    slides[next].classList.remove(enterClass);
+
+    // Sortie du slide actuel + entrée du suivant (déclenchent les transitions CSS)
+    slides[prev].classList.add(exitClass);
+    slides[prev].classList.remove('active');
+    slides[prev].setAttribute('aria-hidden', 'true');
+    dotsContainer.children[prev].classList.remove('active');
+    dotsContainer.children[prev].setAttribute('aria-selected', 'false');
+    dotsContainer.children[prev].setAttribute('tabindex', '-1');
+
+    slides[next].classList.add('active');
+    slides[next].setAttribute('aria-hidden', 'false');
+    dotsContainer.children[next].classList.add('active');
+    dotsContainer.children[next].setAttribute('aria-selected', 'true');
+    dotsContainer.children[next].setAttribute('tabindex', '0');
+
+    current = next;
     document.getElementById('current-slide').textContent = current + 1;
     document.getElementById('nav-counter').textContent = (current + 1) + ' / ' + total;
+
+    // Nettoyer la classe de sortie après l'animation
+    setTimeout(() => slides[prev].classList.remove(exitClass), 500);
   }
 
   function nextSlide() { goTo(current + 1); }
