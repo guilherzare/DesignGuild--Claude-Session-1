@@ -15,7 +15,7 @@
     --accent: #E8612A;
     --accent2: #f0a07a;
     --text: #f0ece6;
-    --muted: #7a7570;
+    --muted: #9e9892;
     --green: #4ade80;
     --blue: #60a5fa;
     --yellow: #fbbf24;
@@ -102,7 +102,7 @@
 
   .nav-counter {
     font-family: 'DM Mono', monospace;
-    font-size: 12px;
+    font-size: 13px;
     color: var(--muted);
     min-width: 48px;
     text-align: center;
@@ -129,7 +129,7 @@
     top: 24px;
     right: 32px;
     font-family: 'DM Mono', monospace;
-    font-size: 11px;
+    font-size: 12px;
     color: var(--muted);
     z-index: 100;
   }
@@ -137,7 +137,7 @@
   /* ─── TAG / LABEL ─── */
   .tag {
     font-family: 'DM Mono', monospace;
-    font-size: 11px;
+    font-size: 13px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--accent);
@@ -192,7 +192,7 @@
 
   .card-title {
     font-family: 'DM Mono', monospace;
-    font-size: 11px;
+    font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--muted);
@@ -252,7 +252,7 @@
 
   .step-num {
     font-family: 'DM Mono', monospace;
-    font-size: 11px;
+    font-size: 13px;
     color: var(--accent);
     padding-top: 2px;
     min-width: 24px;
@@ -265,7 +265,7 @@
 
   .step-text code {
     font-family: 'DM Mono', monospace;
-    font-size: 12px;
+    font-size: 13px;
     background: var(--surface2);
     border: 1px solid var(--border);
     padding: 2px 6px;
@@ -324,7 +324,7 @@
 
   .agenda-time {
     font-family: 'DM Mono', monospace;
-    font-size: 11px;
+    font-size: 13px;
     color: var(--muted);
     min-width: 80px;
   }
@@ -332,7 +332,7 @@
   .agenda-title { font-weight: 600; font-size: 16px; }
   .agenda-speaker {
     font-family: 'DM Mono', monospace;
-    font-size: 11px;
+    font-size: 12px;
     color: var(--muted);
     margin-top: 2px;
   }
@@ -371,7 +371,7 @@
   .t-prompt { color: var(--green); }
   .t-cmd { color: var(--text); }
   .t-out { color: var(--muted); }
-  .t-comment { color: #4a4a4a; }
+  .t-comment { color: #6e6e6e; }
 
   /* ─── SPEAKER BADGE ─── */
   .speaker {
@@ -379,7 +379,7 @@
     align-items: center;
     gap: 8px;
     font-family: 'DM Mono', monospace;
-    font-size: 12px;
+    font-size: 13px;
     color: var(--muted);
     margin-bottom: 12px;
   }
@@ -388,7 +388,7 @@
     width: 28px; height: 28px;
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
     color: #000;
   }
@@ -482,7 +482,7 @@
 
   .concept-card p {
     font-family: 'DM Mono', monospace;
-    font-size: 12px;
+    font-size: 13px;
     color: var(--muted);
     line-height: 1.6;
   }
@@ -490,6 +490,24 @@
   .concept-icon {
     font-size: 20px;
     margin-bottom: 10px;
+  }
+
+  /* ─── FOCUS ─── */
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .dot:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+  }
+
+  /* ─── RÉDUCTION DE MOUVEMENT ─── */
+  @media (prefers-reduced-motion: reduce) {
+    .slide { transition: none; }
+    .step, .concept-card, .dot, .nav button { transition: none; }
   }
 </style>
 </head>
@@ -499,7 +517,7 @@
   <span id="current-slide">1</span> / <span id="total-slides">12</span>
 </div>
 
-<div class="slideshow" id="slideshow">
+<div class="slideshow" id="slideshow" role="region" aria-label="Diaporama">
 
   <!-- ══════════════════════════════════════
        SLIDE 1 — COVER
@@ -522,7 +540,7 @@
       <div style="display:flex;align-items:center;gap:10px;margin-top:20px;justify-content:center">
         <div class="speaker-dot" style="background:var(--accent)">VG</div>
         <span style="font-size:14px;color:var(--muted)">Vincent</span>
-        <span style="color:var(--border)">&amp;</span>
+        <span style="color:var(--muted)">&amp;</span>
         <div class="speaker-dot" style="background:var(--blue)">AM</div>
         <span style="font-size:14px;color:var(--muted)">Anh-Minh</span>
       </div>
@@ -573,7 +591,7 @@
       <ul class="checklist">
         <li>
           <div class="check done">✓</div>
-          Claude Code installé <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-left:8px">npm install -g @anthropic-ai/claude-code</span>
+          Claude Code installé <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);margin-left:8px">npm install -g @anthropic-ai/claude-code</span>
         </li>
         <li>
           <div class="check done">✓</div>
@@ -618,7 +636,7 @@
         <p>Puissance maximale. Intégré dans ton workflow existant. Contrôle total sur le contexte et les fichiers.</p>
       </div>
       <div class="concept-card" style="grid-column:1/-1">
-        <h4 style="color:var(--muted);font-size:12px;margin-bottom:12px;font-family:'DM Mono',monospace">COMMANDES CLI ESSENTIELLES</h4>
+        <h4 style="color:var(--muted);font-size:13px;margin-bottom:12px;font-family:'DM Mono',monospace">COMMANDES CLI ESSENTIELLES</h4>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <span class="pill"><span class="dot-sm"></span>claude</span>
           <span class="pill"><span class="dot-sm"></span>claude --continue</span>
@@ -671,7 +689,7 @@
         <span class="t-red"></span>
         <span class="t-yellow"></span>
         <span class="t-green"></span>
-        <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-left:8px">terminal</span>
+        <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);margin-left:8px">terminal</span>
       </div>
       <div class="terminal-body">
         <div><span class="t-comment"># Se placer dans le dossier du projet</span></div>
@@ -755,7 +773,7 @@
       <div class="concept-card">
         <div class="concept-icon">🌿</div>
         <h4>Branch</h4>
-        <p>Copie isolée du code pour travailler sans impacter <code style="font-family:'DM Mono',monospace;font-size:11px;background:var(--surface2);padding:2px 5px;border-radius:3px">main</code>.</p>
+        <p>Copie isolée du code pour travailler sans impacter <code style="font-family:'DM Mono',monospace;font-size:12px;background:var(--surface2);padding:2px 5px;border-radius:3px">main</code>.</p>
       </div>
       <div class="concept-card">
         <div class="concept-icon">📸</div>
@@ -770,7 +788,7 @@
       <div class="concept-card">
         <div class="concept-icon">🔀</div>
         <h4>Merge / Pull Request</h4>
-        <p>Intégrer ta branche dans <code style="font-family:'DM Mono',monospace;font-size:11px;background:var(--surface2);padding:2px 5px;border-radius:3px">main</code> après review.</p>
+        <p>Intégrer ta branche dans <code style="font-family:'DM Mono',monospace;font-size:12px;background:var(--surface2);padding:2px 5px;border-radius:3px">main</code> après review.</p>
       </div>
     </div>
     <div class="big-num">08</div>
@@ -935,10 +953,10 @@
 
 <!-- ─── NAVIGATION ─── -->
 <div class="nav">
-  <button onclick="prevSlide()">←</button>
-  <div class="nav-dots" id="nav-dots"></div>
-  <span class="nav-counter" id="nav-counter">1 / 12</span>
-  <button onclick="nextSlide()">→</button>
+  <button onclick="prevSlide()" aria-label="Diapositive précédente">←</button>
+  <div class="nav-dots" id="nav-dots" role="tablist" aria-label="Navigation des diapositives"></div>
+  <span class="nav-counter" id="nav-counter" aria-live="polite" aria-atomic="true">1 / 12</span>
+  <button onclick="nextSlide()" aria-label="Diapositive suivante">→</button>
 </div>
 
 <script>
@@ -948,21 +966,43 @@
 
   document.getElementById('total-slides').textContent = total;
 
-  // Build dots
+  // Initialiser aria-hidden sur toutes les slides
+  slides.forEach((slide, i) => {
+    slide.setAttribute('aria-hidden', i === 0 ? 'false' : 'true');
+    slide.setAttribute('role', 'tabpanel');
+    slide.setAttribute('aria-label', 'Diapositive ' + (i + 1) + ' sur ' + total);
+  });
+
+  // Construire les points de navigation
   const dotsContainer = document.getElementById('nav-dots');
   slides.forEach((_, i) => {
-    const d = document.createElement('div');
+    const d = document.createElement('button');
     d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('role', 'tab');
+    d.setAttribute('aria-label', 'Diapositive ' + (i + 1));
+    d.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+    d.setAttribute('tabindex', i === 0 ? '0' : '-1');
     d.onclick = () => goTo(i);
+    d.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goTo(i); }
+    });
     dotsContainer.appendChild(d);
   });
 
   function goTo(n) {
     slides[current].classList.remove('active');
+    slides[current].setAttribute('aria-hidden', 'true');
     dotsContainer.children[current].classList.remove('active');
+    dotsContainer.children[current].setAttribute('aria-selected', 'false');
+    dotsContainer.children[current].setAttribute('tabindex', '-1');
+
     current = (n + total) % total;
+
     slides[current].classList.add('active');
+    slides[current].setAttribute('aria-hidden', 'false');
     dotsContainer.children[current].classList.add('active');
+    dotsContainer.children[current].setAttribute('aria-selected', 'true');
+    dotsContainer.children[current].setAttribute('tabindex', '0');
     document.getElementById('current-slide').textContent = current + 1;
     document.getElementById('nav-counter').textContent = (current + 1) + ' / ' + total;
   }
