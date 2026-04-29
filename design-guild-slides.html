@@ -681,7 +681,23 @@
         <div><span class="t-out">  ▲ Next.js 14  ready on http://localhost:3000</span></div>
       </div>
     </div>
-    <p class="subtitle" style="max-width:500px;text-align:center;margin-top:20px">La mise en ligne via <span class="hl-blue">Vercel</span> sera couverte lors d'une prochaine session.</p>
+    <div style="display:flex;align-items:center;gap:16px;max-width:500px;margin:16px auto 0">
+      <div style="flex:1;height:1px;background:var(--border)"></div>
+      <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--muted)">ou</span>
+      <div style="flex:1;height:1px;background:var(--border)"></div>
+    </div>
+    <div style="max-width:500px;width:100%;display:flex;flex-direction:column;gap:8px;margin-top:12px">
+      <div style="align-self:flex-end;background:var(--surface2);border:1px solid var(--border);border-radius:18px 18px 4px 18px;padding:9px 16px;font-size:14px;color:var(--text)">
+        Lance le serveur en local
+      </div>
+      <div style="align-self:flex-start;display:flex;align-items:flex-start;gap:8px">
+        <div style="width:24px;height:24px;min-width:24px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px">✳</div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px 18px 18px 18px;padding:9px 14px;font-family:'DM Mono',monospace;font-size:12px;color:var(--green)">
+          ▲ Next.js 14 &nbsp;ready on http://localhost:3000
+        </div>
+      </div>
+    </div>
+    <p class="subtitle" style="max-width:500px;text-align:center;margin-top:16px">La mise en ligne via <span class="hl-blue">Vercel</span> sera couverte lors d'une prochaine session.</p>
     <div class="big-num">06</div>
   </div>
 
@@ -732,6 +748,11 @@
     <h2 class="title" style="margin-bottom:28px">Branches & Versions</h2>
     <div class="concept-grid" style="max-width:720px">
       <div class="concept-card">
+        <div class="concept-icon">🏠</div>
+        <h4>Main</h4>
+        <p>La branche principale, stable et partagée. <strong style="color:#f87171">On ne code jamais directement dessus.</strong></p>
+      </div>
+      <div class="concept-card">
         <div class="concept-icon">🌿</div>
         <h4>Branch</h4>
         <p>Copie isolée du code pour travailler sans impacter <code style="font-family:'DM Mono',monospace;font-size:11px;background:var(--surface2);padding:2px 5px;border-radius:3px">main</code>.</p>
@@ -753,6 +774,60 @@
       </div>
     </div>
     <div class="big-num">08</div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 8b — GIT WORKFLOW SCHEME
+  ══════════════════════════════════════ -->
+  <div class="slide" id="s8b">
+    <div class="glow" style="width:300px;height:300px;background:rgba(96,165,250,0.08);top:0;right:0;"></div>
+    <div class="tag blue">Git</div>
+    <h2 class="title" style="margin-bottom:40px">Le workflow complet</h2>
+    <div style="width:100%;max-width:840px;position:relative;z-index:1">
+      <svg viewBox="0 0 840 200" style="width:100%;overflow:visible" xmlns="http://www.w3.org/2000/svg">
+        <!-- Main branch line (avant branch) -->
+        <line x1="40" y1="72" x2="190" y2="72" stroke="#60a5fa" stroke-width="2.5"/>
+        <!-- Main line dashed pendant que feature branch est active -->
+        <line x1="190" y1="72" x2="650" y2="72" stroke="#60a5fa" stroke-width="2" stroke-dasharray="5,4" opacity="0.35"/>
+        <!-- Main branch line (après merge) -->
+        <line x1="650" y1="72" x2="810" y2="72" stroke="#60a5fa" stroke-width="2.5"/>
+
+        <!-- Diverge branch -->
+        <path d="M190,72 Q230,72 255,125" fill="none" stroke="#4ade80" stroke-width="2.5"/>
+        <!-- Feature branch line -->
+        <line x1="255" y1="125" x2="590" y2="125" stroke="#4ade80" stroke-width="2.5"/>
+        <!-- Merge back to main -->
+        <path d="M590,125 Q615,125 650,72" fill="none" stroke="#4ade80" stroke-width="2.5"/>
+
+        <!-- Commit initial sur main -->
+        <circle cx="40" cy="72" r="8" fill="#0e0e0e" stroke="#60a5fa" stroke-width="2.5"/>
+
+        <!-- Branch point -->
+        <circle cx="190" cy="72" r="9" fill="#0e0e0e" stroke="#4ade80" stroke-width="2.5"/>
+
+        <!-- Commits sur feature branch -->
+        <circle cx="355" cy="125" r="8" fill="#0e0e0e" stroke="#4ade80" stroke-width="2.5"/>
+        <circle cx="475" cy="125" r="8" fill="#0e0e0e" stroke="#4ade80" stroke-width="2.5"/>
+
+        <!-- Push / PR point -->
+        <circle cx="590" cy="125" r="8" fill="#0e0e0e" stroke="#fbbf24" stroke-width="2.5"/>
+
+        <!-- Merge commit -->
+        <circle cx="650" cy="72" r="9" fill="#0e0e0e" stroke="#60a5fa" stroke-width="2.5"/>
+
+        <!-- Label main gauche -->
+        <text x="40" y="52" text-anchor="middle" fill="#60a5fa" font-family="'DM Mono',monospace" font-size="12">main</text>
+        <!-- Label main droite -->
+        <text x="810" y="52" text-anchor="end" fill="#60a5fa" font-family="'DM Mono',monospace" font-size="12">main</text>
+
+        <!-- Étiquettes des étapes -->
+        <text x="190" y="168" text-anchor="middle" fill="#4ade80" font-family="'DM Mono',monospace" font-size="12">① branch</text>
+        <text x="355" y="168" text-anchor="middle" fill="#4ade80" font-family="'DM Mono',monospace" font-size="12">② commit</text>
+        <text x="475" y="168" text-anchor="middle" fill="#4ade80" font-family="'DM Mono',monospace" font-size="12">③ commit</text>
+        <text x="590" y="168" text-anchor="middle" fill="#fbbf24" font-family="'DM Mono',monospace" font-size="12">④ push + PR</text>
+        <text x="650" y="52" text-anchor="middle" fill="#60a5fa" font-family="'DM Mono',monospace" font-size="12">⑤ merge</text>
+      </svg>
+    </div>
   </div>
 
   <!-- ══════════════════════════════════════
