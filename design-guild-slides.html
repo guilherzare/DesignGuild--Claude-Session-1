@@ -696,50 +696,47 @@
   <div class="slide" id="s5">
     <div class="glow" style="width:300px;height:300px;background:rgba(232,97,42,0.07);top:0;right:0;"></div>
     <div class="tag">Ce dont Claude a besoin</div>
-    <h2 class="title" style="margin-bottom:8px">Un repo local sur votre Mac</h2>
+    <h2 class="title" style="margin-bottom:8px;text-align:center">Un repo local sur votre Mac</h2>
     <p class="subtitle" style="margin-bottom:36px;text-align:center">Claude lit et modifie tout ce qui est dans ce dossier</p>
 
-    <div style="position:relative;width:640px;height:320px">
-      <!-- Lignes de connexion SVG -->
-      <svg style="position:absolute;inset:0;width:100%;height:100%;overflow:visible" aria-hidden="true">
-        <line x1="320" y1="130" x2="320" y2="72" stroke="#2a2a2a" stroke-width="1.5" stroke-dasharray="4 4"/>
-        <line x1="320" y1="196" x2="320" y2="256" stroke="#2a2a2a" stroke-width="1.5" stroke-dasharray="4 4"/>
-        <line x1="234" y1="163" x2="162" y2="163" stroke="#2a2a2a" stroke-width="1.5" stroke-dasharray="4 4"/>
-        <line x1="406" y1="163" x2="478" y2="163" stroke="#2a2a2a" stroke-width="1.5" stroke-dasharray="4 4"/>
-      </svg>
+    <div style="position:relative;width:700px;height:350px">
+
+      <!-- Encadré Repo (haut) -->
+      <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);border:1px dashed var(--border);border-radius:12px;padding:20px 20px 16px;display:flex;gap:16px;width:400px;background:var(--surface2)">
+        <div style="position:absolute;top:-10px;left:16px;background:var(--bg);padding:0 8px;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase">Repo local</div>
+        <!-- Fichiers -->
+        <div style="flex:1;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 12px;text-align:center">
+          <div style="font-size:15px;margin-bottom:3px">📁</div>
+          <div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--text)">Fichiers</div>
+          <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:2px">Code, assets <span style="color:var(--yellow)">+ CLAUDE.md</span></div>
+        </div>
+        <!-- Git -->
+        <div style="flex:1;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 12px;text-align:center">
+          <div style="font-size:15px;margin-bottom:3px">🌿</div>
+          <div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--text)">Git</div>
+          <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4;text-align:center">Dossier caché <span style="color:var(--accent)">.git/</span><br>à la racine du repo</div>
+        </div>
+      </div>
 
       <!-- Centre : Claude Code -->
-      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--accent);border-radius:12px;padding:14px 24px;text-align:center;min-width:168px">
+      <div style="position:absolute;top:158px;left:50%;transform:translateX(-50%);background:var(--accent);border-radius:12px;padding:14px 28px;text-align:center;min-width:168px">
         <div style="font-size:18px;margin-bottom:4px">⚡</div>
         <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#fff">Claude Code</div>
       </div>
 
-      <!-- Haut : CLAUDE.md -->
-      <div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid rgba(251,191,36,0.4);border-radius:10px;padding:10px 20px;text-align:center;min-width:160px">
-        <div style="font-size:16px;margin-bottom:3px">📄</div>
-        <div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--yellow)">CLAUDE.md</div>
-        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:2px">Ses instructions</div>
-      </div>
-
-      <!-- Gauche : Fichiers -->
-      <div style="position:absolute;top:50%;left:0;transform:translateY(-50%);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 20px;text-align:center;min-width:148px">
-        <div style="font-size:16px;margin-bottom:3px">📁</div>
-        <div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--text)">Fichiers</div>
-        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:2px">Code & assets</div>
-      </div>
-
-      <!-- Droite : Git -->
-      <div style="position:absolute;top:50%;right:0;transform:translateY(-50%);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 20px;text-align:center;min-width:148px">
-        <div style="font-size:16px;margin-bottom:3px">🌿</div>
-        <div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--text)">Git</div>
-        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:2px">Branches & historique</div>
-      </div>
-
-      <!-- Bas : Terminal -->
-      <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 20px;text-align:center;min-width:160px">
-        <div style="font-size:16px;margin-bottom:3px">💻</div>
-        <div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--text)">Terminal</div>
-        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:2px">Exécuter des commandes</div>
+      <!-- Bas : Terminal OR Desktop App -->
+      <div style="position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:12px">
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 20px;text-align:center;min-width:140px">
+          <div style="font-size:15px;margin-bottom:3px">💻</div>
+          <div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--text)">Terminal</div>
+          <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:2px">Interface CLI</div>
+        </div>
+        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em">or</div>
+        <div style="background:var(--surface);border:1px solid rgba(96,165,250,0.35);border-radius:10px;padding:10px 20px;text-align:center;min-width:140px">
+          <div style="font-size:15px;margin-bottom:3px">🖥</div>
+          <div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--blue)">Desktop App</div>
+          <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:2px">Interface graphique</div>
+        </div>
       </div>
     </div>
 
