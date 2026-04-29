@@ -564,6 +564,11 @@
     transform: translateY(20px);
   }
 
+  /* SVG groups : fondu uniquement, pas de translateY (espace SVG différent) */
+  g.anim-hidden { transform: none; }
+
+  .svg-step { transition: opacity 0.5s ease; }
+
   /* ─── RÉDUCTION DE MOUVEMENT ─── */
   @media (prefers-reduced-motion: reduce) {
     .slide { transition: opacity 0.2s ease; transform: none !important; }
@@ -968,48 +973,46 @@
     <h2 class="title" style="margin-bottom:40px">Le workflow complet</h2>
     <div style="width:100%;max-width:840px;position:relative;z-index:1">
       <svg viewBox="0 0 840 200" style="width:100%;overflow:visible" xmlns="http://www.w3.org/2000/svg">
-        <!-- Main branch line (avant branch) -->
-        <line x1="40" y1="72" x2="190" y2="72" stroke="#60a5fa" stroke-width="2.5"/>
-        <!-- Main line dashed pendant que feature branch est active -->
-        <line x1="190" y1="72" x2="650" y2="72" stroke="#60a5fa" stroke-width="2" stroke-dasharray="5,4" opacity="0.35"/>
-        <!-- Main branch line (après merge) -->
-        <line x1="650" y1="72" x2="810" y2="72" stroke="#60a5fa" stroke-width="2.5"/>
-
-        <!-- Diverge branch -->
-        <path d="M190,72 Q230,72 255,125" fill="none" stroke="#4ade80" stroke-width="2.5"/>
-        <!-- Feature branch line -->
-        <line x1="255" y1="125" x2="590" y2="125" stroke="#4ade80" stroke-width="2.5"/>
-        <!-- Merge back to main -->
-        <path d="M590,125 Q615,125 650,72" fill="none" stroke="#4ade80" stroke-width="2.5"/>
-
-        <!-- Commit initial sur main -->
-        <circle cx="40" cy="72" r="8" fill="#0e0e0e" stroke="#60a5fa" stroke-width="2.5"/>
-
-        <!-- Branch point -->
-        <circle cx="190" cy="72" r="9" fill="#0e0e0e" stroke="#4ade80" stroke-width="2.5"/>
-
-        <!-- Commits sur feature branch -->
-        <circle cx="355" cy="125" r="8" fill="#0e0e0e" stroke="#4ade80" stroke-width="2.5"/>
-        <circle cx="475" cy="125" r="8" fill="#0e0e0e" stroke="#4ade80" stroke-width="2.5"/>
-
-        <!-- Push / PR point -->
-        <circle cx="590" cy="125" r="8" fill="#0e0e0e" stroke="#fbbf24" stroke-width="2.5"/>
-
-        <!-- Merge commit -->
-        <circle cx="650" cy="72" r="9" fill="#0e0e0e" stroke="#60a5fa" stroke-width="2.5"/>
-
-        <!-- Label main gauche -->
-        <text x="40" y="52" text-anchor="middle" fill="#60a5fa" font-family="'DM Mono',monospace" font-size="12">main</text>
-        <!-- Label main droite -->
-        <text x="810" y="52" text-anchor="end" fill="#60a5fa" font-family="'DM Mono',monospace" font-size="12">main</text>
-
-        <!-- Étiquettes des étapes -->
-        <text x="40" y="168" text-anchor="middle" fill="#60a5fa" font-family="'DM Mono',monospace" font-size="12">⓪ pull</text>
-        <text x="190" y="168" text-anchor="middle" fill="#4ade80" font-family="'DM Mono',monospace" font-size="12">① branch</text>
-        <text x="355" y="168" text-anchor="middle" fill="#4ade80" font-family="'DM Mono',monospace" font-size="12">② commit</text>
-        <text x="475" y="168" text-anchor="middle" fill="#4ade80" font-family="'DM Mono',monospace" font-size="12">③ commit</text>
-        <text x="590" y="168" text-anchor="middle" fill="#fbbf24" font-family="'DM Mono',monospace" font-size="12">④ push + PR</text>
-        <text x="650" y="52" text-anchor="middle" fill="#60a5fa" font-family="'DM Mono',monospace" font-size="12">⑤ merge</text>
+        <!-- ⓪ pull -->
+        <g class="svg-step">
+          <line x1="40" y1="72" x2="190" y2="72" stroke="#60a5fa" stroke-width="2.5"/>
+          <circle cx="40" cy="72" r="8" fill="#0e0e0e" stroke="#60a5fa" stroke-width="2.5"/>
+          <text x="40" y="52" text-anchor="middle" fill="#60a5fa" font-family="'DM Mono',monospace" font-size="12">main</text>
+          <text x="40" y="168" text-anchor="middle" fill="#60a5fa" font-family="'DM Mono',monospace" font-size="12">⓪ pull</text>
+        </g>
+        <!-- ① branch -->
+        <g class="svg-step">
+          <line x1="190" y1="72" x2="650" y2="72" stroke="#60a5fa" stroke-width="2" stroke-dasharray="5,4" opacity="0.35"/>
+          <path d="M190,72 Q230,72 255,125" fill="none" stroke="#4ade80" stroke-width="2.5"/>
+          <circle cx="190" cy="72" r="9" fill="#0e0e0e" stroke="#4ade80" stroke-width="2.5"/>
+          <text x="190" y="168" text-anchor="middle" fill="#4ade80" font-family="'DM Mono',monospace" font-size="12">① branch</text>
+        </g>
+        <!-- ② commit -->
+        <g class="svg-step">
+          <line x1="255" y1="125" x2="355" y2="125" stroke="#4ade80" stroke-width="2.5"/>
+          <circle cx="355" cy="125" r="8" fill="#0e0e0e" stroke="#4ade80" stroke-width="2.5"/>
+          <text x="355" y="168" text-anchor="middle" fill="#4ade80" font-family="'DM Mono',monospace" font-size="12">② commit</text>
+        </g>
+        <!-- ③ commit -->
+        <g class="svg-step">
+          <line x1="355" y1="125" x2="475" y2="125" stroke="#4ade80" stroke-width="2.5"/>
+          <circle cx="475" cy="125" r="8" fill="#0e0e0e" stroke="#4ade80" stroke-width="2.5"/>
+          <text x="475" y="168" text-anchor="middle" fill="#4ade80" font-family="'DM Mono',monospace" font-size="12">③ commit</text>
+        </g>
+        <!-- ④ push + PR -->
+        <g class="svg-step">
+          <line x1="475" y1="125" x2="590" y2="125" stroke="#4ade80" stroke-width="2.5"/>
+          <circle cx="590" cy="125" r="8" fill="#0e0e0e" stroke="#fbbf24" stroke-width="2.5"/>
+          <text x="590" y="168" text-anchor="middle" fill="#fbbf24" font-family="'DM Mono',monospace" font-size="12">④ push + PR</text>
+        </g>
+        <!-- ⑤ merge -->
+        <g class="svg-step">
+          <path d="M590,125 Q615,125 650,72" fill="none" stroke="#4ade80" stroke-width="2.5"/>
+          <line x1="650" y1="72" x2="810" y2="72" stroke="#60a5fa" stroke-width="2.5"/>
+          <circle cx="650" cy="72" r="9" fill="#0e0e0e" stroke="#60a5fa" stroke-width="2.5"/>
+          <text x="650" y="52" text-anchor="middle" fill="#60a5fa" font-family="'DM Mono',monospace" font-size="12">⑤ merge</text>
+          <text x="810" y="52" text-anchor="end" fill="#60a5fa" font-family="'DM Mono',monospace" font-size="12">main</text>
+        </g>
       </svg>
     </div>
     <div class="big-num">10</div>
@@ -1172,7 +1175,7 @@
   const total = slides.length;
   let current = 0;
 
-  const ANIM_SEL = '.concept-card, li.step, .checklist li, .agenda-item';
+  const ANIM_SEL = '.concept-card, li.step, .checklist li, .agenda-item, .svg-step';
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   let slideStep = 0;
