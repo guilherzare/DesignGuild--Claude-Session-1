@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design Guild — Claude Code · 30/04</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;600;700;800&display=swap');
+
+  :root {
+    --bg: #0e0e0e;
+    --surface: #161616;
+    --surface2: #1f1f1f;
+    --border: #2a2a2a;
+    --accent: #E8612A;
+    --accent2: #f0a07a;
+    --text: #f0ece6;
+    --muted: #7a7570;
+    --green: #4ade80;
+    --blue: #60a5fa;
+    --yellow: #fbbf24;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    background: var(--bg);
+    font-family: 'Syne', sans-serif;
+    color: var(--text);
+    height: 100%;
+    overflow: hidden;
+  }
+
+  /* ─── SLIDESHOW ─── */
+  .slideshow {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 64px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+
+  .slide.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  /* ─── GRID BACKGROUND ─── */
+  .slide::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  /* ─── NAV ─── */
+  .nav {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 10px 20px;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+  }
+
+  .nav button {
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: color 0.2s, background 0.2s;
+    font-family: 'DM Mono', monospace;
+  }
+  .nav button:hover { color: var(--text); background: var(--border); }
+
+  .nav-counter {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    min-width: 48px;
+    text-align: center;
+  }
+
+  .nav-dots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--border);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .dot.active { background: var(--accent); width: 18px; border-radius: 3px; }
+
+  /* ─── SLIDE NUMBER ─── */
+  .slide-num {
+    position: fixed;
+    top: 24px;
+    right: 32px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    z-index: 100;
+  }
+
+  /* ─── TAG / LABEL ─── */
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    padding: 4px 10px;
+    display: inline-block;
+    margin-bottom: 24px;
+  }
+
+  .tag.blue { color: var(--blue); border-color: var(--blue); }
+  .tag.green { color: var(--green); border-color: var(--green); }
+  .tag.yellow { color: var(--yellow); border-color: var(--yellow); }
+
+  /* ─── TYPOGRAPHY ─── */
+  h1.display {
+    font-size: clamp(56px, 8vw, 96px);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+  }
+
+  h2.title {
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  .subtitle {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 16px;
+    line-height: 1.6;
+  }
+
+  /* ─── ACCENT HIGHLIGHT ─── */
+  .hl { color: var(--accent); }
+  .hl-green { color: var(--green); }
+  .hl-blue { color: var(--blue); }
+
+  /* ─── CONTENT CARD ─── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 28px;
+    width: 100%;
+    max-width: 760px;
+  }
+
+  .card-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  /* ─── CHECKLIST ─── */
+  .checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .checklist li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--text);
+  }
+
+  .checklist li .check {
+    width: 20px; height: 20px;
+    border-radius: 4px;
+    border: 1.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 11px;
+  }
+  .checklist li .check.done { background: var(--green); border-color: var(--green); color: #000; }
+
+  /* ─── STEP LIST ─── */
+  .steps {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 640px;
+  }
+
+  .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    transition: border-color 0.2s;
+  }
+
+  .step:hover { border-color: var(--accent); }
+
+  .step-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    padding-top: 2px;
+    min-width: 24px;
+  }
+
+  .step-text {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .step-text code {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--accent2);
+  }
+
+  /* ─── GRID LAYOUT ─── */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    width: 100%;
+    max-width: 760px;
+  }
+
+  /* ─── TWO COL ─── */
+  .cols {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+    max-width: 800px;
+    align-items: flex-start;
+  }
+
+  .col { flex: 1; }
+
+  /* ─── CONCEPT PILL ─── */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .pill .dot-sm {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  /* ─── AGENDA ─── */
+  .agenda-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .agenda-item:last-child { border-bottom: none; }
+
+  .agenda-time {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    min-width: 80px;
+  }
+
+  .agenda-title { font-weight: 600; font-size: 16px; }
+  .agenda-speaker {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* ─── TERMINAL ─── */
+  .terminal {
+    background: #0a0a0a;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    width: 100%;
+    max-width: 580px;
+  }
+
+  .terminal-bar {
+    background: var(--surface2);
+    padding: 10px 16px;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .terminal-bar span {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+
+  .t-red { background: #ff5f57; }
+  .t-yellow { background: #febc2e; }
+  .t-green { background: #28c840; }
+
+  .terminal-body { padding: 20px; line-height: 2; }
+  .t-prompt { color: var(--green); }
+  .t-cmd { color: var(--text); }
+  .t-out { color: var(--muted); }
+  .t-comment { color: #4a4a4a; }
+
+  /* ─── SPEAKER BADGE ─── */
+  .speaker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .speaker-dot {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #000;
+  }
+
+  /* ─── SECTION DIVIDER ─── */
+  .divider-line {
+    width: 48px;
+    height: 2px;
+    background: var(--accent);
+    margin: 20px 0;
+  }
+
+  /* ─── BIG NUMBER ─── */
+  .big-num {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(80px, 14vw, 160px);
+    font-weight: 300;
+    color: var(--border);
+    line-height: 1;
+    position: absolute;
+    right: 64px;
+    bottom: 80px;
+    letter-spacing: -0.05em;
+  }
+
+  /* ─── SLIDE-SPECIFIC STYLES ─── */
+
+  /* COVER */
+  #s1 .content {
+    z-index: 1;
+    max-width: 760px;
+    width: 100%;
+  }
+
+  #s1 .meta {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-top: 32px;
+  }
+
+  #s1 .meta-item {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  #s1 .meta-sep { color: var(--border); }
+
+  #s1 .claude-logo {
+    width: 52px; height: 52px;
+    background: var(--accent);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+    margin-bottom: 32px;
+  }
+
+  /* GLOW EFFECT */
+  .glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ─── TWO-COL CONCEPT ─── */
+  .concept-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+    max-width: 760px;
+  }
+
+  .concept-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    transition: border-color 0.2s;
+  }
+  .concept-card:hover { border-color: var(--accent); }
+
+  .concept-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .concept-card p {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .concept-icon {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="slide-num">
+  <span id="current-slide">1</span> / <span id="total-slides">12</span>
+</div>
+
+<div class="slideshow" id="slideshow">
+
+  <!-- ══════════════════════════════════════
+       SLIDE 1 — COVER
+  ══════════════════════════════════════ -->
+  <div class="slide active" id="s1">
+    <div class="glow" style="width:400px;height:400px;background:rgba(232,97,42,0.12);top:-100px;left:-100px;"></div>
+    <div class="glow" style="width:300px;height:300px;background:rgba(96,165,250,0.06);bottom:0;right:0;"></div>
+    <div class="content" style="z-index:1">
+      <div class="claude-logo">✳</div>
+      <div class="tag">Design Guild · Session #1</div>
+      <h1 class="display">Claude<br><span class="hl">Code</span></h1>
+      <div class="divider-line"></div>
+      <div class="meta">
+        <span class="meta-item">30 avril 2025</span>
+        <span class="meta-sep">·</span>
+        <span class="meta-item">1h00</span>
+        <span class="meta-sep">·</span>
+        <span class="meta-item">Intro + Workshop</span>
+      </div>
+    </div>
+    <div class="big-num">01</div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 2 — AGENDA
+  ══════════════════════════════════════ -->
+  <div class="slide" id="s2">
+    <div class="glow" style="width:350px;height:350px;background:rgba(232,97,42,0.08);bottom:-80px;right:-80px;"></div>
+    <div class="tag">Plan de session</div>
+    <h2 class="title" style="margin-bottom:36px">Au programme</h2>
+    <div class="card" style="max-width:640px">
+      <div class="agenda-item">
+        <div class="agenda-time">00 → 15 min</div>
+        <div>
+          <div class="agenda-title">🧩 Intro — Notions clés</div>
+          <div class="agenda-speaker">Setup · App vs Terminal · Visualiser · Git</div>
+        </div>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-time">15 → 60 min</div>
+        <div>
+          <div class="agenda-title">🛠 Workshop — Hands-on</div>
+          <div class="agenda-speaker">Cloner, brancher, coder, pusher</div>
+        </div>
+      </div>
+    </div>
+    <div class="subtitle" style="margin-top:24px">Session #2 → From scratch + Figma MCP</div>
+    <div class="big-num">02</div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 3 — SETUP
+  ══════════════════════════════════════ -->
+  <div class="slide" id="s3">
+    <div class="glow" style="width:300px;height:300px;background:rgba(74,222,128,0.07);top:0;right:0;"></div>
+    <div class="speaker">
+      <div class="speaker-dot" style="background:var(--accent)">VG</div>
+      Vincent Guilhermond
+    </div>
+    <div class="tag green">Setup ✅</div>
+    <h2 class="title" style="margin-bottom:32px">Prérequis</h2>
+    <div class="card" style="max-width:560px">
+      <div class="card-title">Checklist avant de commencer</div>
+      <ul class="checklist">
+        <li>
+          <div class="check done">✓</div>
+          Claude Code installé <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-left:8px">npm install -g @anthropic-ai/claude-code</span>
+        </li>
+        <li>
+          <div class="check done">✓</div>
+          Compte Anthropic / accès API activé
+        </li>
+        <li>
+          <div class="check done">✓</div>
+          Git installé + configuré
+        </li>
+        <li>
+          <div class="check done">✓</div>
+          Node.js ≥ 18
+        </li>
+        <li>
+          <div class="check">·</div>
+          Connaissance des commandes de base du terminal
+        </li>
+      </ul>
+    </div>
+    <div class="big-num">03</div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 4 — APP vs TERMINAL
+  ══════════════════════════════════════ -->
+  <div class="slide" id="s4">
+    <div class="speaker">
+      <div class="speaker-dot" style="background:var(--accent)">VG</div>
+      Vincent Guilhermond
+    </div>
+    <div class="tag">App vs Terminal</div>
+    <h2 class="title" style="margin-bottom:32px">Deux façons d'utiliser<br>Claude Code</h2>
+    <div class="concept-grid">
+      <div class="concept-card">
+        <div class="concept-icon">🖥</div>
+        <h4>Application Desktop</h4>
+        <p>Interface graphique pour démarrer rapidement. Gestion visuelle des projets. Idéale pour les débutants.</p>
+      </div>
+      <div class="concept-card" style="border-color:rgba(232,97,42,0.3)">
+        <div class="concept-icon">⌨️</div>
+        <h4>Terminal (CLI)</h4>
+        <p>Puissance maximale. Intégré dans ton workflow existant. Contrôle total sur le contexte et les fichiers.</p>
+      </div>
+      <div class="concept-card" style="grid-column:1/-1">
+        <h4 style="color:var(--muted);font-size:12px;margin-bottom:12px;font-family:'DM Mono',monospace">COMMANDES CLI ESSENTIELLES</h4>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <span class="pill"><span class="dot-sm"></span>claude</span>
+          <span class="pill"><span class="dot-sm"></span>claude --continue</span>
+          <span class="pill"><span class="dot-sm"></span>claude --resume</span>
+          <span class="pill"><span class="dot-sm"></span>/help</span>
+          <span class="pill"><span class="dot-sm"></span>/clear</span>
+        </div>
+      </div>
+    </div>
+    <div class="big-num">04</div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 5 — SKILLS
+  ══════════════════════════════════════ -->
+  <div class="slide" id="s5">
+    <div class="glow" style="width:300px;height:300px;background:rgba(251,191,36,0.06);bottom:0;left:0;"></div>
+    <div class="speaker">
+      <div class="speaker-dot" style="background:var(--accent)">VG</div>
+      Vincent Guilhermond
+    </div>
+    <div class="tag yellow">Skills</div>
+    <h2 class="title" style="margin-bottom:32px">Les Skills Claude Code</h2>
+    <div class="card" style="max-width:640px">
+      <div class="card-title">C'est quoi un skill ?</div>
+      <p style="font-size:15px;line-height:1.7;margin-bottom:20px">Les Skills sont des <span class="hl">instructions personnalisées</span> que Claude Code suit dans un projet. Ils permettent de cadrer le comportement de Claude en lui donnant du contexte métier, des conventions de code, ou des workflows spécifiques.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <span class="pill"><span class="dot-sm" style="background:var(--yellow)"></span>CLAUDE.md</span>
+        <span class="pill"><span class="dot-sm" style="background:var(--yellow)"></span>Mémoire persistante</span>
+        <span class="pill"><span class="dot-sm" style="background:var(--yellow)"></span>Conventions équipe</span>
+        <span class="pill"><span class="dot-sm" style="background:var(--yellow)"></span>Contexte projet</span>
+      </div>
+    </div>
+    <div class="big-num">05</div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 6 — VISUALISER SON APP
+  ══════════════════════════════════════ -->
+  <div class="slide" id="s6">
+    <div class="glow" style="width:350px;height:350px;background:rgba(96,165,250,0.07);top:0;left:0;"></div>
+    <div class="speaker">
+      <div class="speaker-dot" style="background:var(--blue)">AM</div>
+      Anh-Minh VU
+    </div>
+    <div class="tag blue">Visualiser son app</div>
+    <h2 class="title" style="margin-bottom:32px">Lancer un serveur local</h2>
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span class="t-red"></span>
+        <span class="t-yellow"></span>
+        <span class="t-green"></span>
+        <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-left:8px">terminal</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="t-comment"># Se placer dans le dossier du projet</span></div>
+        <div><span class="t-prompt">→</span> <span class="t-cmd">cd general-settings</span></div>
+        <div><span class="t-comment"># Lancer le serveur de dev</span></div>
+        <div><span class="t-prompt">→</span> <span class="t-cmd">npm run dev</span></div>
+        <div><span class="t-out">  ▲ Next.js 14  ready on http://localhost:3000</span></div>
+      </div>
+    </div>
+    <p class="subtitle" style="max-width:500px;text-align:center;margin-top:20px">La mise en ligne via <span class="hl-blue">Vercel</span> sera couverte lors d'une prochaine session.</p>
+    <div class="big-num">06</div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 7 — REPOSITORY
+  ══════════════════════════════════════ -->
+  <div class="slide" id="s7">
+    <div class="speaker">
+      <div class="speaker-dot" style="background:var(--blue)">AM</div>
+      Anh-Minh VU
+    </div>
+    <div class="tag blue">Repository</div>
+    <h2 class="title" style="margin-bottom:32px">Local vs Git</h2>
+    <div class="concept-grid">
+      <div class="concept-card">
+        <div class="concept-icon">💾</div>
+        <h4>Repository Local</h4>
+        <p>Ton projet existe uniquement sur ta machine. Parfait pour commencer à développer avant de partager.</p>
+      </div>
+      <div class="concept-card" style="border-color:rgba(96,165,250,0.3)">
+        <div class="concept-icon">☁️</div>
+        <h4>Git (Remote)</h4>
+        <p>Ton code est synchronisé sur un serveur distant (GitHub/GitLab). Collaboration en équipe possible.</p>
+      </div>
+    </div>
+    <div class="terminal" style="margin-top:20px">
+      <div class="terminal-bar">
+        <span class="t-red"></span><span class="t-yellow"></span><span class="t-green"></span>
+      </div>
+      <div class="terminal-body" style="padding:14px 20px">
+        <div><span class="t-prompt">→</span> <span class="t-cmd">git clone &lt;url-du-repo&gt;</span> <span class="t-comment">  # Cloner un repo existant</span></div>
+        <div><span class="t-prompt">→</span> <span class="t-cmd">git status</span> <span class="t-comment">              # Voir les fichiers modifiés</span></div>
+      </div>
+    </div>
+    <div class="big-num">07</div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 8 — GIT WORKFLOW
+  ══════════════════════════════════════ -->
+  <div class="slide" id="s8">
+    <div class="glow" style="width:300px;height:300px;background:rgba(96,165,250,0.08);bottom:0;right:0;"></div>
+    <div class="speaker">
+      <div class="speaker-dot" style="background:var(--blue)">AM</div>
+      Anh-Minh VU
+    </div>
+    <div class="tag blue">Git</div>
+    <h2 class="title" style="margin-bottom:28px">Branches & Versions</h2>
+    <div class="concept-grid" style="max-width:720px">
+      <div class="concept-card">
+        <div class="concept-icon">🌿</div>
+        <h4>Branch</h4>
+        <p>Copie isolée du code pour travailler sans impacter <code style="font-family:'DM Mono',monospace;font-size:11px;background:var(--surface2);padding:2px 5px;border-radius:3px">main</code>.</p>
+      </div>
+      <div class="concept-card">
+        <div class="concept-icon">📸</div>
+        <h4>Commit</h4>
+        <p>Snapshot de tes modifications avec un message descriptif.</p>
+      </div>
+      <div class="concept-card">
+        <div class="concept-icon">⬆️</div>
+        <h4>Push</h4>
+        <p>Envoyer tes commits locaux vers le serveur distant.</p>
+      </div>
+      <div class="concept-card">
+        <div class="concept-icon">🔀</div>
+        <h4>Merge / Pull Request</h4>
+        <p>Intégrer ta branche dans <code style="font-family:'DM Mono',monospace;font-size:11px;background:var(--surface2);padding:2px 5px;border-radius:3px">main</code> après review.</p>
+      </div>
+    </div>
+    <div class="big-num">08</div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 9 — WORKSHOP INTRO
+  ══════════════════════════════════════ -->
+  <div class="slide" id="s9">
+    <div class="glow" style="width:500px;height:500px;background:rgba(232,97,42,0.1);center;top:-100px;left:-100px;"></div>
+    <div class="tag">Workshop · 45 min</div>
+    <h2 class="title" style="margin-bottom:16px;text-align:center">Use Case — Session <span class="hl">#1</span></h2>
+    <p class="subtitle" style="text-align:center;margin-bottom:36px">Modifier une page existante en production</p>
+    <div class="card" style="max-width:600px">
+      <div class="card-title" style="color:var(--accent)">Objectif</div>
+      <p style="font-size:14px;line-height:1.7;color:var(--muted)">
+        Cloner le repo <strong style="color:var(--text)">general-settings</strong>, créer une branche, ajouter une section "Customization" avec Claude Code, puis ouvrir une Pull Request.
+      </p>
+    </div>
+    <div class="big-num">09</div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 10 — WORKSHOP STEPS
+  ══════════════════════════════════════ -->
+  <div class="slide" id="s10">
+    <div class="speaker">
+      <div class="speaker-dot" style="background:var(--blue)">AM</div>
+      Anh-Minh VU
+    </div>
+    <div class="tag">Step by step</div>
+    <h2 class="title" style="margin-bottom:28px">Les étapes du workshop</h2>
+    <ul class="steps">
+      <li class="step">
+        <span class="step-num">01 →</span>
+        <span class="step-text">Lancer Claude depuis le Desktop</span>
+      </li>
+      <li class="step">
+        <span class="step-num">02 →</span>
+        <span class="step-text">Cloner le projet : <code>git clone [url-general-settings]</code></span>
+      </li>
+      <li class="step">
+        <span class="step-num">03 →</span>
+        <span class="step-text">Se déplacer dans le repo : <code>cd general-settings</code></span>
+      </li>
+      <li class="step">
+        <span class="step-num">04 →</span>
+        <span class="step-text">Lancer le serveur : <code>npm run dev</code> → <code>localhost:3000</code></span>
+      </li>
+      <li class="step">
+        <span class="step-num">05 →</span>
+        <span class="step-text">Créer sa branche : <code>git checkout -b profile-customization</code></span>
+      </li>
+      <li class="step">
+        <span class="step-num">06 →</span>
+        <span class="step-text">Itérer avec Claude : <em style="color:var(--muted)">"Rajouter une section Customization (surname…)"</em></span>
+      </li>
+      <li class="step">
+        <span class="step-num">07 →</span>
+        <span class="step-text">Commit & Push : <code>git commit -m "feat: add customization section"</code></span>
+      </li>
+      <li class="step">
+        <span class="step-num">08 →</span>
+        <span class="step-text">Ouvrir une <strong>Pull Request</strong> sur GitHub</span>
+      </li>
+    </ul>
+    <div class="big-num">10</div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 11 — SESSION 2 TEASER
+  ══════════════════════════════════════ -->
+  <div class="slide" id="s11">
+    <div class="glow" style="width:400px;height:400px;background:rgba(96,165,250,0.08);top:0;right:0;"></div>
+    <div class="tag blue">Coming next · Session #2</div>
+    <h2 class="title" style="margin-bottom:32px;text-align:center">From <span class="hl-blue">Scratch</span></h2>
+    <div class="concept-grid" style="max-width:580px">
+      <div class="concept-card" style="border-color:rgba(96,165,250,0.25)">
+        <div class="concept-icon">🔌</div>
+        <h4>Figma MCP</h4>
+        <p>Connecter Claude Code directement à Figma pour générer du code à partir de tes designs.</p>
+      </div>
+      <div class="concept-card" style="border-color:rgba(96,165,250,0.25)">
+        <div class="concept-icon">🏗</div>
+        <h4>Créer de zéro</h4>
+        <p>Bootstrapper une nouvelle page ou feature entièrement guidée par Claude Code.</p>
+      </div>
+    </div>
+    <div class="big-num">11</div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 12 — FIN
+  ══════════════════════════════════════ -->
+  <div class="slide" id="s12">
+    <div class="glow" style="width:500px;height:500px;background:rgba(232,97,42,0.12);top:-150px;right:-150px;"></div>
+    <div class="glow" style="width:300px;height:300px;background:rgba(96,165,250,0.07);bottom:-50px;left:-50px;"></div>
+    <div style="z-index:1;text-align:center">
+      <div class="claude-logo" style="margin:0 auto 32px">✳</div>
+      <h1 class="display">Let's<br><span class="hl">build.</span></h1>
+      <div class="divider-line" style="margin:24px auto"></div>
+      <p class="subtitle">Design Guild · 30/04/2025 · Session #1</p>
+    </div>
+    <div class="big-num">12</div>
+  </div>
+
+</div><!-- /slideshow -->
+
+<!-- ─── NAVIGATION ─── -->
+<div class="nav">
+  <button onclick="prevSlide()">←</button>
+  <div class="nav-dots" id="nav-dots"></div>
+  <span class="nav-counter" id="nav-counter">1 / 12</span>
+  <button onclick="nextSlide()">→</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 0;
+
+  document.getElementById('total-slides').textContent = total;
+
+  // Build dots
+  const dotsContainer = document.getElementById('nav-dots');
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsContainer.appendChild(d);
+  });
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    dotsContainer.children[current].classList.remove('active');
+    current = (n + total) % total;
+    slides[current].classList.add('active');
+    dotsContainer.children[current].classList.add('active');
+    document.getElementById('current-slide').textContent = current + 1;
+    document.getElementById('nav-counter').textContent = (current + 1) + ' / ' + total;
+  }
+
+  function nextSlide() { goTo(current + 1); }
+  function prevSlide() { goTo(current - 1); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') nextSlide();
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide();
+  });
+</script>
+
+</body>
+</html>
