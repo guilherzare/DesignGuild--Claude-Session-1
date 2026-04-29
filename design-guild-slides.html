@@ -564,6 +564,10 @@
     transform: translateY(20px);
   }
 
+  .schema-step {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
   /* SVG groups : fondu uniquement, pas de translateY (espace SVG différent) */
   g.anim-hidden { transform: none; }
 
@@ -687,8 +691,32 @@
 
     <div style="position:relative;width:700px;height:350px">
 
-      <!-- Encadré Repo (haut) -->
-      <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);border:1px dashed var(--border);border-radius:12px;padding:20px 20px 16px;display:flex;gap:16px;width:400px;background:var(--surface2)">
+      <!-- [ANIM 1] Bas : Terminal OR Desktop App -->
+      <div class="schema-step" style="position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:12px">
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 20px;text-align:center;min-width:140px">
+          <div style="font-size:15px;margin-bottom:3px">💻</div>
+          <div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--text)">Terminal</div>
+          <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:2px">Interface CLI</div>
+        </div>
+        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em">or</div>
+        <div style="background:var(--surface);border:1px solid rgba(96,165,250,0.35);border-radius:10px;padding:10px 20px;text-align:center;min-width:140px">
+          <div style="font-size:15px;margin-bottom:3px">🖥</div>
+          <div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--blue)">Desktop App</div>
+          <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:2px">Interface graphique</div>
+        </div>
+      </div>
+
+      <!-- [ANIM 2] Centre : Claude Code — enveloppe sans transform pour l'animation -->
+      <div class="schema-step" style="position:absolute;top:158px;left:0;right:0;display:flex;justify-content:center">
+        <div style="background:var(--accent);border-radius:12px;padding:14px 28px;text-align:center;min-width:168px">
+          <div style="font-size:18px;margin-bottom:4px">⚡</div>
+          <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#fff">Claude Code</div>
+        </div>
+      </div>
+
+      <!-- [ANIM 3] Encadré Repo (haut) — enveloppe sans transform pour l'animation -->
+      <div class="schema-step" style="position:absolute;top:0;left:0;right:0;display:flex;justify-content:center">
+      <div style="border:1px dashed var(--border);border-radius:12px;padding:20px 20px 16px;display:flex;gap:16px;width:400px;background:var(--surface2);position:relative">
         <div style="position:absolute;top:-10px;left:16px;background:var(--bg);padding:0 8px;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase">Repo local</div>
         <!-- Fichiers -->
         <div style="flex:1;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 12px;text-align:center">
@@ -703,28 +731,8 @@
           <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4;text-align:center">Dossier caché <span style="color:var(--accent)">.git/</span><br>à la racine du repo</div>
         </div>
       </div>
-
-      <!-- Centre : Claude Code -->
-      <div style="position:absolute;top:158px;left:50%;transform:translateX(-50%);background:var(--accent);border-radius:12px;padding:14px 28px;text-align:center;min-width:168px">
-        <div style="font-size:18px;margin-bottom:4px">⚡</div>
-        <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#fff">Claude Code</div>
-      </div>
-
-      <!-- Bas : Terminal OR Desktop App -->
-      <div style="position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:12px">
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 20px;text-align:center;min-width:140px">
-          <div style="font-size:15px;margin-bottom:3px">💻</div>
-          <div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--text)">Terminal</div>
-          <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:2px">Interface CLI</div>
-        </div>
-        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em">or</div>
-        <div style="background:var(--surface);border:1px solid rgba(96,165,250,0.35);border-radius:10px;padding:10px 20px;text-align:center;min-width:140px">
-          <div style="font-size:15px;margin-bottom:3px">🖥</div>
-          <div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--blue)">Desktop App</div>
-          <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:2px">Interface graphique</div>
-        </div>
-      </div>
-    </div>
+      </div><!-- /schema-step Repo -->
+    </div><!-- /conteneur 700×350 -->
 
     <div class="big-num">04</div>
   </div>
@@ -816,7 +824,7 @@
       Vincent Guilhermond
     </div>
     <div class="tag yellow">CLAUDE.md</div>
-    <h2 class="title" style="margin-bottom:12px">Le brief de Claude</h2>
+    <h2 class="title" style="margin-bottom:12px"><span style="font-family:'DM Mono',monospace;color:var(--accent)">.MD</span> le brief de Claude</h2>
     <p class="subtitle" style="margin-bottom:32px;text-align:center">Un simple fichier texte dans votre projet — Claude le lit à chaque session</p>
     <div style="display:flex;gap:16px;width:100%;max-width:760px">
       <div class="concept-card" style="flex:1;border-color:rgba(251,191,36,0.25)">
@@ -1181,7 +1189,7 @@
   const total = slides.length;
   let current = 0;
 
-  const ANIM_SEL = '.concept-card, li.step, .checklist li, .agenda-item, .svg-step';
+  const ANIM_SEL = '.concept-card, li.step, .checklist li, .agenda-item, .svg-step, .schema-step';
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   let slideStep = 0;
