@@ -283,6 +283,48 @@
     color: var(--accent2);
   }
 
+  .step-body { display: flex; flex-direction: column; gap: 6px; }
+
+  .cmd-pair {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .cmd-claude {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    background: rgba(232, 97, 42, 0.08);
+    border: 1px solid rgba(232, 97, 42, 0.25);
+    border-radius: 4px;
+    padding: 3px 8px;
+  }
+
+  .cmd-cli {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 3px 8px;
+  }
+
+  .cmd-tag {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    opacity: 0.6;
+  }
+
   /* ─── GRID LAYOUT ─── */
   .grid-2 {
     display: grid;
@@ -991,38 +1033,79 @@
     </div>
     <div class="tag">Step by step</div>
     <h2 class="title" style="margin-bottom:28px">Les étapes du workshop</h2>
-    <ul class="steps">
-      <li class="step">
+    <ul class="steps" style="max-width:800px;gap:8px">
+      <li class="step" style="padding:10px 16px">
         <span class="step-num">01 →</span>
         <span class="step-text">Lancer Claude depuis le Desktop</span>
       </li>
-      <li class="step">
+      <li class="step" style="padding:10px 16px">
         <span class="step-num">02 →</span>
-        <span class="step-text">Cloner le projet : <code>git clone https://github.com/vuanh-minh/user-settings.git</code></span>
+        <div class="step-body">
+          <span class="step-text">Cloner le projet</span>
+          <div class="cmd-pair">
+            <span class="cmd-claude"><span class="cmd-tag">Claude</span> "Clone le repo user-settings depuis GitHub"</span>
+            <span class="cmd-cli"><span class="cmd-tag">CLI</span> git clone https://github.com/vuanh-minh/user-settings.git</span>
+          </div>
+        </div>
       </li>
-      <li class="step">
+      <li class="step" style="padding:10px 16px">
         <span class="step-num">03 →</span>
-        <span class="step-text">Se déplacer dans le repo : <code>! cd user-settings</code></span>
+        <div class="step-body">
+          <span class="step-text">Se déplacer dans le repo</span>
+          <div class="cmd-pair">
+            <span class="cmd-claude"><span class="cmd-tag">Claude</span> ! cd user-settings</span>
+            <span class="cmd-cli"><span class="cmd-tag">CLI</span> cd user-settings</span>
+          </div>
+        </div>
       </li>
-      <li class="step">
+      <li class="step" style="padding:10px 16px">
         <span class="step-num">04 →</span>
-        <span class="step-text">Lancer le serveur : <code>npm run dev</code> → <code>localhost:3000</code></span>
+        <div class="step-body">
+          <span class="step-text">Lancer le serveur → <code>localhost:3000</code></span>
+          <div class="cmd-pair">
+            <span class="cmd-claude"><span class="cmd-tag">Claude</span> ! npm run dev</span>
+            <span class="cmd-cli"><span class="cmd-tag">CLI</span> npm run dev</span>
+          </div>
+        </div>
       </li>
-      <li class="step">
+      <li class="step" style="padding:10px 16px">
         <span class="step-num">05 →</span>
-        <span class="step-text">Créer sa branche : <code>git checkout -b profile-customization</code></span>
+        <div class="step-body">
+          <span class="step-text">Créer sa branche</span>
+          <div class="cmd-pair">
+            <span class="cmd-claude"><span class="cmd-tag">Claude</span> "Crée une branche profile-customization"</span>
+            <span class="cmd-cli"><span class="cmd-tag">CLI</span> git checkout -b profile-customization</span>
+          </div>
+        </div>
       </li>
-      <li class="step">
+      <li class="step" style="padding:10px 16px">
         <span class="step-num">06 →</span>
-        <span class="step-text">Itérer avec Claude : <em style="color:var(--muted)">"Rajouter une section Customization (surname…)"</em></span>
+        <div class="step-body">
+          <span class="step-text">Itérer avec Claude</span>
+          <div class="cmd-pair">
+            <span class="cmd-claude"><span class="cmd-tag">Claude</span> "Rajoute une section Customization (surname, avatar…)"</span>
+          </div>
+        </div>
       </li>
-      <li class="step">
+      <li class="step" style="padding:10px 16px">
         <span class="step-num">07 →</span>
-        <span class="step-text">Commit & Push : <code>git commit -m "feat: add customization section"</code></span>
+        <div class="step-body">
+          <span class="step-text">Commit &amp; Push</span>
+          <div class="cmd-pair">
+            <span class="cmd-claude"><span class="cmd-tag">Claude</span> "Commit et push mes changements"</span>
+            <span class="cmd-cli"><span class="cmd-tag">CLI</span> git commit -m "feat: add customization section" &amp;&amp; git push</span>
+          </div>
+        </div>
       </li>
-      <li class="step">
+      <li class="step" style="padding:10px 16px">
         <span class="step-num">08 →</span>
-        <span class="step-text">Ouvrir une <strong>Pull Request</strong> sur GitHub</span>
+        <div class="step-body">
+          <span class="step-text">Ouvrir une <strong>Pull Request</strong></span>
+          <div class="cmd-pair">
+            <span class="cmd-claude"><span class="cmd-tag">Claude</span> "Ouvre une PR sur GitHub"</span>
+            <span class="cmd-cli"><span class="cmd-tag">CLI</span> gh pr create</span>
+          </div>
+        </div>
       </li>
     </ul>
     <div class="big-num">12</div>
