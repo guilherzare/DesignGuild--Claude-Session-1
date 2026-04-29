@@ -691,9 +691,65 @@
   </div>
 
   <!-- ══════════════════════════════════════
-       SLIDE 5 — SKILLS
+       SLIDE 5 — SCHEMA REPO
   ══════════════════════════════════════ -->
   <div class="slide" id="s5">
+    <div class="glow" style="width:300px;height:300px;background:rgba(232,97,42,0.07);top:0;right:0;"></div>
+    <div class="tag">Ce dont Claude a besoin</div>
+    <h2 class="title" style="margin-bottom:8px">Un repo local sur votre Mac</h2>
+    <p class="subtitle" style="margin-bottom:36px;text-align:center">Claude lit et modifie tout ce qui est dans ce dossier</p>
+
+    <div style="position:relative;width:640px;height:320px">
+      <!-- Lignes de connexion SVG -->
+      <svg style="position:absolute;inset:0;width:100%;height:100%;overflow:visible" aria-hidden="true">
+        <line x1="320" y1="130" x2="320" y2="72" stroke="#2a2a2a" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <line x1="320" y1="196" x2="320" y2="256" stroke="#2a2a2a" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <line x1="234" y1="163" x2="162" y2="163" stroke="#2a2a2a" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <line x1="406" y1="163" x2="478" y2="163" stroke="#2a2a2a" stroke-width="1.5" stroke-dasharray="4 4"/>
+      </svg>
+
+      <!-- Centre : Claude Code -->
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--accent);border-radius:12px;padding:14px 24px;text-align:center;min-width:168px">
+        <div style="font-size:18px;margin-bottom:4px">⚡</div>
+        <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#fff">Claude Code</div>
+      </div>
+
+      <!-- Haut : CLAUDE.md -->
+      <div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid rgba(251,191,36,0.4);border-radius:10px;padding:10px 20px;text-align:center;min-width:160px">
+        <div style="font-size:16px;margin-bottom:3px">📄</div>
+        <div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--yellow)">CLAUDE.md</div>
+        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:2px">Ses instructions</div>
+      </div>
+
+      <!-- Gauche : Fichiers -->
+      <div style="position:absolute;top:50%;left:0;transform:translateY(-50%);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 20px;text-align:center;min-width:148px">
+        <div style="font-size:16px;margin-bottom:3px">📁</div>
+        <div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--text)">Fichiers</div>
+        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:2px">Code & assets</div>
+      </div>
+
+      <!-- Droite : Git -->
+      <div style="position:absolute;top:50%;right:0;transform:translateY(-50%);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 20px;text-align:center;min-width:148px">
+        <div style="font-size:16px;margin-bottom:3px">🌿</div>
+        <div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--text)">Git</div>
+        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:2px">Branches & historique</div>
+      </div>
+
+      <!-- Bas : Terminal -->
+      <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 20px;text-align:center;min-width:160px">
+        <div style="font-size:16px;margin-bottom:3px">💻</div>
+        <div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--text)">Terminal</div>
+        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:2px">Exécuter des commandes</div>
+      </div>
+    </div>
+
+    <div class="big-num">05</div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 6 — CLAUDE.md
+  ══════════════════════════════════════ -->
+  <div class="slide" id="s6">
     <div class="glow" style="width:300px;height:300px;background:rgba(251,191,36,0.06);bottom:0;left:0;"></div>
     <div class="speaker">
       <div class="speaker-dot" style="background:var(--accent)">VG</div>
@@ -719,13 +775,13 @@
         <p>Conventions de nommage, ton attendu, règles du projet. Claude s'adapte à votre contexte.</p>
       </div>
     </div>
-    <div class="big-num">05</div>
+    <div class="big-num">06</div>
   </div>
 
   <!-- ══════════════════════════════════════
-       SLIDE 6 — VISUALISER SON APP
+       SLIDE 7 — VISUALISER SON APP
   ══════════════════════════════════════ -->
-  <div class="slide" id="s6">
+  <div class="slide" id="s7">
     <div class="glow" style="width:350px;height:350px;background:rgba(96,165,250,0.07);top:0;left:0;"></div>
     <div class="speaker">
       <div class="speaker-dot" style="background:var(--blue)">AM</div>
@@ -765,11 +821,11 @@
       </div>
     </div>
     <p class="subtitle" style="max-width:500px;text-align:center;margin-top:16px">La mise en ligne via <span class="hl-blue">Vercel</span> sera couverte lors d'une prochaine session.</p>
-    <div class="big-num">06</div>
+    <div class="big-num">07</div>
   </div>
 
   <!-- ══════════════════════════════════════
-       SLIDE 7 — REPOSITORY
+       SLIDE 8 — REPOSITORY
   ══════════════════════════════════════ -->
   <div class="slide" id="s7">
     <div class="speaker">
@@ -799,11 +855,11 @@
         <div><span class="t-prompt">→</span> <span class="t-cmd">git status</span> <span class="t-comment">              # Voir les fichiers modifiés</span></div>
       </div>
     </div>
-    <div class="big-num">07</div>
+    <div class="big-num">08</div>
   </div>
 
   <!-- ══════════════════════════════════════
-       SLIDE 8 — GIT WORKFLOW
+       SLIDE 9 — GIT WORKFLOW
   ══════════════════════════════════════ -->
   <div class="slide" id="s8">
     <div class="glow" style="width:300px;height:300px;background:rgba(96,165,250,0.08);bottom:0;right:0;"></div>
@@ -845,11 +901,11 @@
         <p>Intégrer ta branche dans <code style="font-family:'DM Mono',monospace;font-size:12px;background:var(--surface2);padding:2px 5px;border-radius:3px">main</code> après review.</p>
       </div>
     </div>
-    <div class="big-num">08</div>
+    <div class="big-num">09</div>
   </div>
 
   <!-- ══════════════════════════════════════
-       SLIDE 8b — GIT WORKFLOW SCHEME
+       SLIDE 10 — GIT WORKFLOW SCHEME
   ══════════════════════════════════════ -->
   <div class="slide" id="s8b">
     <div class="glow" style="width:300px;height:300px;background:rgba(96,165,250,0.08);top:0;right:0;"></div>
@@ -900,11 +956,11 @@
         <text x="650" y="52" text-anchor="middle" fill="#60a5fa" font-family="'DM Mono',monospace" font-size="12">⑤ merge</text>
       </svg>
     </div>
-    <div class="big-num">09</div>
+    <div class="big-num">10</div>
   </div>
 
   <!-- ══════════════════════════════════════
-       SLIDE 9 — WORKSHOP INTRO
+       SLIDE 11 — WORKSHOP INTRO
   ══════════════════════════════════════ -->
   <div class="slide" id="s9">
     <div class="glow" style="width:500px;height:500px;background:rgba(232,97,42,0.1);center;top:-100px;left:-100px;"></div>
@@ -917,11 +973,11 @@
         Cloner le repo <strong style="color:var(--text)">general-settings</strong>, créer une branche, ajouter une section "Customization" avec Claude Code, puis ouvrir une Pull Request.
       </p>
     </div>
-    <div class="big-num">10</div>
+    <div class="big-num">11</div>
   </div>
 
   <!-- ══════════════════════════════════════
-       SLIDE 10 — WORKSHOP STEPS
+       SLIDE 12 — WORKSHOP STEPS
   ══════════════════════════════════════ -->
   <div class="slide" id="s10">
     <div class="speaker">
@@ -964,28 +1020,13 @@
         <span class="step-text">Ouvrir une <strong>Pull Request</strong> sur GitHub</span>
       </li>
     </ul>
-    <div class="big-num">11</div>
-  </div>
-
-  <!-- ══════════════════════════════════════
-       SLIDE 12 — FIN
-  ══════════════════════════════════════ -->
-  <div class="slide" id="s12">
-    <div class="glow" style="width:500px;height:500px;background:rgba(232,97,42,0.12);top:-150px;right:-150px;"></div>
-    <div class="glow" style="width:300px;height:300px;background:rgba(96,165,250,0.07);bottom:-50px;left:-50px;"></div>
-    <div style="z-index:1;text-align:center">
-      <div class="claude-logo" style="margin:0 auto 32px">✳</div>
-      <h1 class="display">Let's<br><span class="hl">build.</span></h1>
-      <div class="divider-line" style="margin:24px auto"></div>
-      <p class="subtitle">Design Guild · 30/04/2025 · Session #1</p>
-    </div>
     <div class="big-num">12</div>
   </div>
 
   <!-- ══════════════════════════════════════
-       SLIDE 11 — SESSION 2 TEASER
+       SLIDE 13 — SESSION 2 TEASER
   ══════════════════════════════════════ -->
-  <div class="slide" id="s11">
+  <div class="slide" id="s13">
     <div class="glow" style="width:400px;height:400px;background:rgba(96,165,250,0.08);top:0;right:0;"></div>
     <div class="tag blue">Coming next · Session #2</div>
     <h2 class="title" style="margin-bottom:32px;text-align:center">From <span class="hl-blue">Scratch</span></h2>
@@ -1002,6 +1043,21 @@
       </div>
     </div>
     <div class="big-num">13</div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 14 — FIN
+  ══════════════════════════════════════ -->
+  <div class="slide" id="s14">
+    <div class="glow" style="width:500px;height:500px;background:rgba(232,97,42,0.12);top:-150px;right:-150px;"></div>
+    <div class="glow" style="width:300px;height:300px;background:rgba(96,165,250,0.07);bottom:-50px;left:-50px;"></div>
+    <div style="z-index:1;text-align:center">
+      <div class="claude-logo" style="margin:0 auto 32px">✳</div>
+      <h1 class="display">Let's<br><span class="hl">build.</span></h1>
+      <div class="divider-line" style="margin:24px auto"></div>
+      <p class="subtitle">Design Guild · 30/04/2025 · Session #1</p>
+    </div>
+    <div class="big-num">14</div>
   </div>
 
 </div><!-- /slideshow -->
