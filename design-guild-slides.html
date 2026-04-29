@@ -677,9 +677,62 @@
   </div>
 
   <!-- ══════════════════════════════════════
-       SLIDE 4 — APP vs TERMINAL
+       SLIDE 4 — SCHEMA REPO
   ══════════════════════════════════════ -->
   <div class="slide" id="s4">
+    <div class="glow" style="width:300px;height:300px;background:rgba(232,97,42,0.07);top:0;right:0;"></div>
+    <div class="tag">Ce dont Claude a besoin</div>
+    <h2 class="title" style="margin-bottom:8px;text-align:center">Un repo local sur votre Mac</h2>
+    <p class="subtitle" style="margin-bottom:36px;text-align:center">Claude lit et modifie tout ce qui est dans ce dossier</p>
+
+    <div style="position:relative;width:700px;height:350px">
+
+      <!-- Encadré Repo (haut) -->
+      <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);border:1px dashed var(--border);border-radius:12px;padding:20px 20px 16px;display:flex;gap:16px;width:400px;background:var(--surface2)">
+        <div style="position:absolute;top:-10px;left:16px;background:var(--bg);padding:0 8px;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase">Repo local</div>
+        <!-- Fichiers -->
+        <div style="flex:1;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 12px;text-align:center">
+          <div style="font-size:15px;margin-bottom:3px">📁</div>
+          <div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--text)">Fichiers</div>
+          <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:2px">Code, assets <span style="color:var(--yellow)">+ CLAUDE.md</span></div>
+        </div>
+        <!-- Git -->
+        <div style="flex:1;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 12px;text-align:center">
+          <div style="font-size:15px;margin-bottom:3px">🌿</div>
+          <div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--text)">Git</div>
+          <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4;text-align:center">Dossier caché <span style="color:var(--accent)">.git/</span><br>à la racine du repo</div>
+        </div>
+      </div>
+
+      <!-- Centre : Claude Code -->
+      <div style="position:absolute;top:158px;left:50%;transform:translateX(-50%);background:var(--accent);border-radius:12px;padding:14px 28px;text-align:center;min-width:168px">
+        <div style="font-size:18px;margin-bottom:4px">⚡</div>
+        <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#fff">Claude Code</div>
+      </div>
+
+      <!-- Bas : Terminal OR Desktop App -->
+      <div style="position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:12px">
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 20px;text-align:center;min-width:140px">
+          <div style="font-size:15px;margin-bottom:3px">💻</div>
+          <div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--text)">Terminal</div>
+          <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:2px">Interface CLI</div>
+        </div>
+        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em">or</div>
+        <div style="background:var(--surface);border:1px solid rgba(96,165,250,0.35);border-radius:10px;padding:10px 20px;text-align:center;min-width:140px">
+          <div style="font-size:15px;margin-bottom:3px">🖥</div>
+          <div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--blue)">Desktop App</div>
+          <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:2px">Interface graphique</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="big-num">04</div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 5 — APP vs TERMINAL
+  ══════════════════════════════════════ -->
+  <div class="slide" id="s5">
     <div class="speaker">
       <div class="speaker-dot" style="background:var(--accent)">VG</div>
       Vincent Guilhermond
@@ -750,59 +803,6 @@
         </div>
       </div>
     </div>
-    <div class="big-num">04</div>
-  </div>
-
-  <!-- ══════════════════════════════════════
-       SLIDE 5 — SCHEMA REPO
-  ══════════════════════════════════════ -->
-  <div class="slide" id="s5">
-    <div class="glow" style="width:300px;height:300px;background:rgba(232,97,42,0.07);top:0;right:0;"></div>
-    <div class="tag">Ce dont Claude a besoin</div>
-    <h2 class="title" style="margin-bottom:8px;text-align:center">Un repo local sur votre Mac</h2>
-    <p class="subtitle" style="margin-bottom:36px;text-align:center">Claude lit et modifie tout ce qui est dans ce dossier</p>
-
-    <div style="position:relative;width:700px;height:350px">
-
-      <!-- Encadré Repo (haut) -->
-      <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);border:1px dashed var(--border);border-radius:12px;padding:20px 20px 16px;display:flex;gap:16px;width:400px;background:var(--surface2)">
-        <div style="position:absolute;top:-10px;left:16px;background:var(--bg);padding:0 8px;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase">Repo local</div>
-        <!-- Fichiers -->
-        <div style="flex:1;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 12px;text-align:center">
-          <div style="font-size:15px;margin-bottom:3px">📁</div>
-          <div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--text)">Fichiers</div>
-          <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:2px">Code, assets <span style="color:var(--yellow)">+ CLAUDE.md</span></div>
-        </div>
-        <!-- Git -->
-        <div style="flex:1;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 12px;text-align:center">
-          <div style="font-size:15px;margin-bottom:3px">🌿</div>
-          <div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--text)">Git</div>
-          <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4;text-align:center">Dossier caché <span style="color:var(--accent)">.git/</span><br>à la racine du repo</div>
-        </div>
-      </div>
-
-      <!-- Centre : Claude Code -->
-      <div style="position:absolute;top:158px;left:50%;transform:translateX(-50%);background:var(--accent);border-radius:12px;padding:14px 28px;text-align:center;min-width:168px">
-        <div style="font-size:18px;margin-bottom:4px">⚡</div>
-        <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#fff">Claude Code</div>
-      </div>
-
-      <!-- Bas : Terminal OR Desktop App -->
-      <div style="position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:12px">
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 20px;text-align:center;min-width:140px">
-          <div style="font-size:15px;margin-bottom:3px">💻</div>
-          <div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--text)">Terminal</div>
-          <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:2px">Interface CLI</div>
-        </div>
-        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em">or</div>
-        <div style="background:var(--surface);border:1px solid rgba(96,165,250,0.35);border-radius:10px;padding:10px 20px;text-align:center;min-width:140px">
-          <div style="font-size:15px;margin-bottom:3px">🖥</div>
-          <div style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--blue)">Desktop App</div>
-          <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:2px">Interface graphique</div>
-        </div>
-      </div>
-    </div>
-
     <div class="big-num">05</div>
   </div>
 
