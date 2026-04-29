@@ -637,12 +637,46 @@
       </div>
       <div class="concept-card" style="grid-column:1/-1">
         <h4 style="color:var(--muted);font-size:13px;margin-bottom:12px;font-family:'DM Mono',monospace">COMMANDES CLI ESSENTIELLES</h4>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <span class="pill"><span class="dot-sm"></span>claude</span>
-          <span class="pill"><span class="dot-sm"></span>claude --continue</span>
-          <span class="pill"><span class="dot-sm"></span>claude --resume</span>
-          <span class="pill"><span class="dot-sm"></span>/help</span>
-          <span class="pill"><span class="dot-sm"></span>/clear</span>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px">
+          <div style="display:flex;align-items:center;gap:16px">
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);min-width:170px">claude</span>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--muted)">Lancer Claude Code dans le terminal</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px">
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);min-width:170px">claude --continue</span>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--muted)">Reprendre la dernière session</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px">
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);min-width:170px">claude --resume</span>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--muted)">Choisir une session passée</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px">
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);min-width:170px">/help</span>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--muted)">Afficher les commandes disponibles</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px">
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);min-width:170px">/clear</span>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--muted)">Vider l'historique de la conversation — Claude repart de zéro, sans mémoire des échanges précédents</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px">
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);min-width:170px">Esc Esc</span>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--muted)">Effacer l'entrée en cours</span>
+          </div>
+        </div>
+        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px">Base terminal</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;align-items:center;gap:16px">
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text);min-width:170px">cd [dossier]</span>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--muted)">Se placer dans un dossier</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px">
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text);min-width:170px">ls</span>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--muted)">Lister les fichiers du dossier actuel</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px">
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text);min-width:170px">pwd</span>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--muted)">Afficher le chemin du dossier actuel</span>
+          </div>
         </div>
       </div>
     </div>
@@ -658,16 +692,24 @@
       <div class="speaker-dot" style="background:var(--accent)">VG</div>
       Vincent Guilhermond
     </div>
-    <div class="tag yellow">Skills</div>
-    <h2 class="title" style="margin-bottom:32px">Les Skills Claude Code</h2>
-    <div class="card" style="max-width:640px">
-      <div class="card-title">C'est quoi un skill ?</div>
-      <p style="font-size:15px;line-height:1.7;margin-bottom:20px">Les Skills sont des <span class="hl">instructions personnalisées</span> que Claude Code suit dans un projet. Ils permettent de cadrer le comportement de Claude en lui donnant du contexte métier, des conventions de code, ou des workflows spécifiques.</p>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <span class="pill"><span class="dot-sm" style="background:var(--yellow)"></span>CLAUDE.md</span>
-        <span class="pill"><span class="dot-sm" style="background:var(--yellow)"></span>Mémoire persistante</span>
-        <span class="pill"><span class="dot-sm" style="background:var(--yellow)"></span>Conventions équipe</span>
-        <span class="pill"><span class="dot-sm" style="background:var(--yellow)"></span>Contexte projet</span>
+    <div class="tag yellow">CLAUDE.md</div>
+    <h2 class="title" style="margin-bottom:12px">Le brief de Claude</h2>
+    <p class="subtitle" style="margin-bottom:32px;text-align:center">Un simple fichier texte dans votre projet — Claude le lit à chaque session</p>
+    <div style="display:flex;gap:16px;width:100%;max-width:760px">
+      <div class="concept-card" style="flex:1;border-color:rgba(251,191,36,0.25)">
+        <div class="concept-icon">✍️</div>
+        <h4>Vous écrivez en français</h4>
+        <p>Pas de code. Juste des phrases. "Réponds toujours en français." "Explique chaque modification."</p>
+      </div>
+      <div class="concept-card" style="flex:1;border-color:rgba(251,191,36,0.25)">
+        <div class="concept-icon">🧠</div>
+        <h4>Claude s'en souvient</h4>
+        <p>À chaque nouvelle session, il relit ce fichier. Son comportement reste cohérent d'une fois à l'autre.</p>
+      </div>
+      <div class="concept-card" style="flex:1;border-color:rgba(251,191,36,0.25)">
+        <div class="concept-icon">🎯</div>
+        <h4>Adapté à votre équipe</h4>
+        <p>Conventions de nommage, ton attendu, règles du projet. Claude s'adapte à votre contexte.</p>
       </div>
     </div>
     <div class="big-num">05</div>
